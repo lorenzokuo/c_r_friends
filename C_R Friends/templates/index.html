@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>C+R Friends</title>
+    <style>
+    .error {
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>These are my friends!</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Occupation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in friends %}
+                <tr>
+                    <td>{{ i['id'] }}</td>
+                    <td>{{ i['first_name'] }}</td>
+                    <td>{{ i['last_name'] }}</td>
+                    <td>{{ i['occupation'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Add a friend!</h3>
+        <!-- message -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/process" method="post">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">First name:</label>
+                <div class="col-sm-10">
+                    <input name="first_name" type="text" value="{{ first_name }}" class="form-control" placeholder="first name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Last name:</label>
+                <div class="col-sm-10">
+                    <input name="last_name" type="text" value="{{ last_name }}" class="form-control" placeholder="last name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Occupation:</label>
+                <div class="col-sm-10">
+                    <input name="occupation" type="text" value="{{ occupation }}" class="form-control" placeholder="occupation">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-5">
+                </div>  
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-primary" href="/clear">Clear</a>
+                </div>
+            </div>
+            
+        </form>
+
+    </div>
+
+</body>
+
+</html>
